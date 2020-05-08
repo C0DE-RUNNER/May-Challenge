@@ -1,0 +1,18 @@
+class Solution {
+public:
+     bool checkStraightLine(vector<vector<int>>& coordinates) {
+        
+        int num = coordinates[1][1] - coordinates[0][1];  
+        int deno = coordinates[1][0] - coordinates[0][0];  
+        int y1 = coordinates[0][1]; 
+        int x1 = coordinates[0][0]; 
+		
+        for(int i=1;i<coordinates.size();i++) {
+            
+            if((deno*(coordinates[i][1]-y1) != (num*(coordinates[i][0]-x1)))) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
