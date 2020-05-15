@@ -1,0 +1,50 @@
+class Trie {
+public:
+    Trie() : root (new TrieNode()) {}
+    
+    void insert(const string& word) {
+        auto it = root;
+        for (auto c : word) {
+            int idx = c - 'a';
+            if (it->chars[idx] == nullptr) {
+                it->chars[idx] = new TrieNode();
+            }
+            it = it->chars[idx];
+        }
+        it->is_leaf = true;
+    }
+    
+    bool search(const string& word) {
+        auto node = find(word);
+        return node && node->is_leaf;
+    }
+    
+    bool startsWith(const string& word) {
+        auto node = find(word);
+        return node ? true : false;
+    }
+private:
+	// TrieNode definition
+    struct TrieNode {
+        bool is_leaf;
+        array<TrieNode*, 26> chars;
+
+        TrieNode() : is_leaf(false) {
+            chars = { nullptr };
+        }
+    };
+    
+    TrieNode* root = new TrieNode;
+    
+    TrieNode* find(const string& word) {
+        auto it = root;
+        for (auto c : word) {
+            int idx = c - 'a';
+            if (it->chars[idx] == nullptr) {
+                return nullptr;
+            }
+            it = it->chars[idx];
+        }
+        return it;
+    }
+};
