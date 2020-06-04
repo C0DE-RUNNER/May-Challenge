@@ -1,0 +1,21 @@
+bool canFinish(int n, vector<vector<int>>& p) 
+	{
+		vector<int> degree(n,0);
+		unordered_map<int,vector<int>> m;
+		for(auto a:p)
+		{
+			m[a[1]].push_back(a[0]);
+			degree[a[0]]++;
+		}
+		for(int i=0;i<n;i++)
+		{
+			int j=0;
+			for(;j<n;j++)
+				if(!degree[j])break;
+			if(j==n)return false;
+			degree[j]--;
+			for(auto a:m[j])
+				degree[a]--;
+		}
+		return true;
+	}
